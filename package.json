@@ -7,6 +7,9 @@
   },
   "scripts": {
     "build": "npx projen build",
+    "bundle": "npx projen bundle",
+    "bundle:livelink.lambda": "npx projen bundle:livelink.lambda",
+    "bundle:livelink.lambda:watch": "npx projen bundle:livelink.lambda:watch",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
     "compile": "npx projen compile",
@@ -14,6 +17,12 @@
     "docgen": "npx projen docgen",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
+    "integ:livelink:assert": "npx projen integ:livelink:assert",
+    "integ:livelink:deploy": "npx projen integ:livelink:deploy",
+    "integ:livelink:destroy": "npx projen integ:livelink:destroy",
+    "integ:livelink:snapshot": "npx projen integ:livelink:snapshot",
+    "integ:livelink:watch": "npx projen integ:livelink:watch",
+    "integ:snapshot-all": "npx projen integ:snapshot-all",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:js": "npx projen package:js",
@@ -33,6 +42,7 @@
     "organization": false
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.104",
     "@types/jest": "^27",
     "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
@@ -40,6 +50,7 @@
     "aws-cdk": "^2.42.0",
     "aws-cdk-lib": "^2.42.0",
     "constructs": "^10.0.5",
+    "esbuild": "^0.15.8",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^3.5.1",
@@ -51,6 +62,7 @@
     "jsii-docgen": "^7.0.88",
     "jsii-pacmak": "^1.67.0",
     "json-schema": "^0.4.0",
+    "node-fetch": "^3.2.10",
     "npm-check-updates": "^15",
     "projen": "^0.62.11",
     "ts-jest": "^27",
@@ -115,7 +127,10 @@
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"
-    }
+    },
+    "excludeTypescript": [
+      "src/**/*.lambda.ts"
+    ]
   },
   "resolutions": {
     "@types/responselike": "1.0.0",
