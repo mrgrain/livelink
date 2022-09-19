@@ -24,6 +24,33 @@
         }
       ]
     },
+    "bundle": {
+      "name": "bundle",
+      "description": "Prepare assets",
+      "steps": [
+        {
+          "spawn": "bundle:livelink.lambda"
+        }
+      ]
+    },
+    "bundle:livelink.lambda": {
+      "name": "bundle:livelink.lambda",
+      "description": "Create a JavaScript bundle from src/livelink.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --external:aws-sdk"
+        }
+      ]
+    },
+    "bundle:livelink.lambda:watch": {
+      "name": "bundle:livelink.lambda:watch",
+      "description": "Continuously update the JavaScript bundle from src/livelink.lambda.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --external:aws-sdk --watch"
+        }
+      ]
+    },
     "clobber": {
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -113,6 +140,81 @@
         }
       ]
     },
+    "integ:livelink:assert": {
+      "name": "integ:livelink:assert",
+      "description": "assert the snapshot of integration test 'livelink'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/livelink.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'livelink'. Run 'projen integ:livelink:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata -o test/.tmp/livelink.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/livelink.integ.snapshot/ test/.tmp/livelink.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:livelink:deploy": {
+      "name": "integ:livelink:deploy",
+      "description": "deploy integration test 'livelink' and capture snapshot",
+      "steps": [
+        {
+          "spawn": "bundle"
+        },
+        {
+          "exec": "rm -fr test/.tmp/livelink.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/.tmp/livelink.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/livelink.integ.snapshot"
+        },
+        {
+          "exec": "mv test/.tmp/livelink.integ/deploy.cdk.out test/livelink.integ.snapshot"
+        },
+        {
+          "spawn": "integ:livelink:destroy"
+        }
+      ]
+    },
+    "integ:livelink:destroy": {
+      "name": "integ:livelink:destroy",
+      "description": "destroy integration test 'livelink'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/livelink.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:livelink:snapshot": {
+      "name": "integ:livelink:snapshot",
+      "description": "update snapshot for integration test \"livelink\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata -o test/livelink.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:livelink:watch": {
+      "name": "integ:livelink:watch",
+      "description": "watch integration test 'livelink' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/.tmp/livelink.integ/deploy.cdk.out"
+        }
+      ]
+    },
+    "integ:snapshot-all": {
+      "name": "integ:snapshot-all",
+      "description": "update snapshot for all integration tests",
+      "steps": [
+        {
+          "spawn": "integ:livelink:snapshot"
+        }
+      ]
+    },
     "package": {
       "name": "package",
       "description": "Creates the distribution package",
@@ -155,7 +257,12 @@
     },
     "pre-compile": {
       "name": "pre-compile",
-      "description": "Prepare the project for compilation"
+      "description": "Prepare the project for compilation",
+      "steps": [
+        {
+          "spawn": "bundle"
+        }
+      ]
     },
     "test": {
       "name": "test",
@@ -166,6 +273,9 @@
         },
         {
           "spawn": "eslint"
+        },
+        {
+          "spawn": "integ:livelink:assert"
         }
       ]
     },

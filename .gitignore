@@ -47,3 +47,14 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+/assets/
+!/src/livelink-function.ts
+test/.tmp
+test/livelink.integ.snapshot/asset.*
+test/livelink.integ.snapshot/**/asset.*
+test/livelink.integ.snapshot/cdk.out
+test/livelink.integ.snapshot/**/cdk.out
+test/livelink.integ.snapshot/manifest.json
+test/livelink.integ.snapshot/**/manifest.json
+test/livelink.integ.snapshot/tree.json
+test/livelink.integ.snapshot/**/tree.json

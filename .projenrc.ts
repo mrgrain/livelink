@@ -16,12 +16,27 @@ const project = new awscdk.AwsCdkConstructLibrary({
     projenCredentials: github.GithubCredentials.fromApp(),
   },
   devDeps: [
+    '@types/aws-lambda',
     'aws-cdk@^2.42.0',
     'aws-cdk-lib@^2.42.0',
     'constructs@^10.0.5',
+    'node-fetch',
   ],
   peerDependencyOptions: {
     pinnedDevDependency: false,
   },
+  lambdaOptions: {
+    runtime: awscdk.LambdaRuntime.NODEJS_16_X,
+    bundlingOptions: {
+      sourcemap: false,
+    },
+    awsSdkConnectionReuse: false,
+  },
+  excludeTypescript: [
+    'src/**/*.lambda.ts',
+  ],
 });
+
+project.tasks.tryFind('integ:livelink:deploy')?.prependSpawn(project.tasks.tryFind('bundle')!);
+
 project.synth();

@@ -1,0 +1,34 @@
+{
+  "version": "21.0.0",
+  "files": {
+    "eb44c0c0713ccf45a140178d65848ecf1bd3b26d36452c1f94d63fe845f9bae3": {
+      "source": {
+        "path": "asset.eb44c0c0713ccf45a140178d65848ecf1bd3b26d36452c1f94d63fe845f9bae3.lambda",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-2",
+          "objectKey": "eb44c0c0713ccf45a140178d65848ecf1bd3b26d36452c1f94d63fe845f9bae3.zip",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-eu-west-2"
+        }
+      }
+    },
+    "288c73d2a30952efc0429cd47f7ded697fda73171c8e41c4d9f591e5c7f5de87": {
+      "source": {
+        "path": "LivelinkApp.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-eu-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-2",
+          "objectKey": "288c73d2a30952efc0429cd47f7ded697fda73171c8e41c4d9f591e5c7f5de87.json",
+          "region": "eu-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-eu-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

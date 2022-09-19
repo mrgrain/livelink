@@ -150,7 +150,8 @@
           "**/build-tools/**",
           "**/projenrc/**",
           ".projenrc.ts",
-          "projenrc/**/*.ts"
+          "projenrc/**/*.ts",
+          "src/livelink.lambda.ts"
         ],
         "optionalDependencies": false,
         "peerDependencies": true

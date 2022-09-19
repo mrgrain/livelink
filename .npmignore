@@ -19,3 +19,6 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+!/assets/
+test/.tmp
+test/livelink.integ.snapshot
