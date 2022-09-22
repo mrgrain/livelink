@@ -29,6 +29,9 @@
       "description": "Prepare assets",
       "steps": [
         {
+          "exec": "rm -fr assets/**"
+        },
+        {
           "spawn": "bundle:livelink.lambda"
         }
       ]
@@ -38,7 +41,7 @@
       "description": "Create a JavaScript bundle from src/livelink.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk"
         }
       ]
     },
@@ -47,7 +50,7 @@
       "description": "Continuously update the JavaScript bundle from src/livelink.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --external:aws-sdk --watch"
+          "exec": "esbuild --bundle src/livelink.lambda.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/livelink.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:aws-sdk --watch"
         }
       ]
     },
@@ -145,10 +148,13 @@
       "description": "assert the snapshot of integration test 'livelink'",
       "steps": [
         {
+          "spawn": "bundle"
+        },
+        {
           "exec": "[ -d \"test/livelink.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'livelink'. Run 'projen integ:livelink:deploy' to capture.\" && exit 1)"
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata -o test/.tmp/livelink.integ/assert.cdk.out > /dev/null"
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/.tmp/livelink.integ/assert.cdk.out > /dev/null"
         },
         {
           "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/livelink.integ.snapshot/ test/.tmp/livelink.integ/assert.cdk.out/"
@@ -166,7 +172,7 @@
           "exec": "rm -fr test/.tmp/livelink.integ/deploy.cdk.out"
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/.tmp/livelink.integ/deploy.cdk.out"
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/.tmp/livelink.integ/deploy.cdk.out"
         },
         {
           "exec": "rm -fr test/livelink.integ.snapshot"
@@ -193,7 +199,10 @@
       "description": "update snapshot for integration test \"livelink\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata -o test/livelink.integ.snapshot > /dev/null"
+          "spawn": "bundle"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/livelink.integ.snapshot > /dev/null"
         }
       ]
     },
@@ -202,7 +211,7 @@
       "description": "watch integration test 'livelink' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/.tmp/livelink.integ/deploy.cdk.out"
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/.tmp/livelink.integ/deploy.cdk.out"
         }
       ]
     },
