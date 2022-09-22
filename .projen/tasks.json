@@ -29,6 +29,9 @@
       "description": "Prepare assets",
       "steps": [
         {
+          "exec": "rm -fr assets/**"
+        },
+        {
           "spawn": "bundle:livelink.lambda"
         }
       ]
@@ -145,6 +148,9 @@
       "description": "assert the snapshot of integration test 'livelink'",
       "steps": [
         {
+          "spawn": "bundle"
+        },
+        {
           "exec": "[ -d \"test/livelink.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'livelink'. Run 'projen integ:livelink:deploy' to capture.\" && exit 1)"
         },
         {
@@ -192,6 +198,9 @@
       "name": "integ:livelink:snapshot",
       "description": "update snapshot for integration test \"livelink\"",
       "steps": [
+        {
+          "spawn": "bundle"
+        },
         {
           "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/livelink.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/livelink.integ.snapshot > /dev/null"
         }

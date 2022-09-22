@@ -41,6 +41,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
-project.tasks.tryFind('integ:livelink:deploy')?.prependSpawn(project.tasks.tryFind('bundle')!);
+const bundleTask = project.tasks.tryFind('bundle')!;
+bundleTask.prependExec('rm -fr assets/**');
+project.tasks.tryFind('integ:livelink:assert')?.prependSpawn(bundleTask);
+project.tasks.tryFind('integ:livelink:deploy')?.prependSpawn(bundleTask);
+project.tasks.tryFind('integ:livelink:snapshot')?.prependSpawn(bundleTask);
 
 project.synth();
