@@ -1,4 +1,4 @@
-import { awscdk, github } from 'projen';
+import { awscdk } from 'projen';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -12,8 +12,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
   release: false,
   prerelease: 'pre',
   license: 'MIT',
+  buildWorkflowTriggers: {
+    pullRequestTarget: {},
+    workflowDispatch: {},
+    push: {},
+  },
   githubOptions: {
-    projenCredentials: github.GithubCredentials.fromApp(),
+    projenCredentials: {
+      tokenRef: '${{ secrets.GITHUB_TOKEN }}',
+      setupSteps: [],
+    } as any,
   },
   autoApproveUpgrades: true,
   autoApproveOptions: {
