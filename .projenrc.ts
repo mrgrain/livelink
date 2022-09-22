@@ -14,7 +14,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   license: 'MIT',
   buildWorkflowTriggers: {
     pullRequestTarget: {},
-    workflowRun: {},
+    workflowDispatch: {},
+    push: {},
   },
   githubOptions: {
     projenCredentials: {
