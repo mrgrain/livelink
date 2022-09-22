@@ -278,6 +278,9 @@
       "description": "Run tests",
       "steps": [
         {
+          "spawn": "bundle"
+        },
+        {
           "exec": "jest --passWithNoTests --all --updateSnapshot"
         },
         {
