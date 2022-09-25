@@ -59,3 +59,7 @@ test/livelink.integ.snapshot/manifest.json
 test/livelink.integ.snapshot/**/manifest.json
 test/livelink.integ.snapshot/tree.json
 test/livelink.integ.snapshot/**/tree.json
+!/images/wordmark.svg
+!/images/wordmark-dark.svg
+!/images/wordmark-light.svg
+!/images/wordmark-dynamic.svg

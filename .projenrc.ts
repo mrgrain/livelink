@@ -1,4 +1,5 @@
 import { awscdk, github } from 'projen';
+import { LogoSystem } from './projenrc/LogoSystem';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -25,6 +26,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'aws-cdk-lib@^2.42.0',
     'constructs@^10.0.5',
     'node-fetch',
+    'lodash.merge',
+    '@types/lodash.merge',
   ],
   peerDependencyOptions: {
     pinnedDevDependency: false,
@@ -41,6 +44,30 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+
+// Logos
+new LogoSystem(project, {
+  logo: {
+    width: 145,
+    height: 166,
+    scale: 1.23,
+    dx: 3,
+  },
+  wordmark: {
+    text: 'LiveLink',
+    font: { color: '#6F7174' },
+    colorScheme: {
+      dark: { color: '#f0f6fc' },
+      light: { color: '#191919' },
+    },
+    size: {
+      width: 600,
+      scale: 0.5,
+    },
+  },
+});
+
+// Always bundle
 const bundleTask = project.tasks.tryFind('bundle')!;
 bundleTask.prependExec('rm -fr assets/**');
 project.testTask.prependSpawn(bundleTask);

@@ -12,6 +12,10 @@
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "images/wordmark-dark.svg",
+    "images/wordmark-dynamic.svg",
+    "images/wordmark-light.svg",
+    "images/wordmark.svg",
     "LICENSE",
     "src/livelink-function.ts",
     "tsconfig.dev.json"

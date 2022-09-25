@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="145" height="166" viewBox="0 0 145 166">
+
+    <g transform="translate(38 83)" shape-rendering="crispEdges">
+        <g class="top" transform="translate(0 -40) rotate(30) skewX(-30) scale(1 0.8660254) translate(-20 -60)">
+            <rect fill="#aa0000" width="80" height="80" />
+            <g class="icon" transform="translate(40 40) scale(.55) translate(-40 -40) scale(2.5)">
+                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
+                    shape-rendering="auto">
+                    <polygon points="0,28 32,28 16,0" fill="#FFFFFF" />
+                </svg>
+            </g>
+        </g>
+        <rect class="front" fill="#FF0000" width="80" height="80"
+            transform="skewY(-30) scale(0.8660254 1) translate(40 20)" />
+        <rect class="side" fill="#440000" width="80" height="80"
+            transform="skewY(30) scale(0.8660254 1) translate(-40 -20)" />
+    </g>
+
+</svg>
