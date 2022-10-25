@@ -13,6 +13,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTrigger: release.ReleaseTrigger.scheduled({
     schedule: '0 5 * * 1',
   }),
+  releaseToNpm: false,
   prerelease: 'pre',
   license: 'MIT',
   autoApproveUpgrades: true,
