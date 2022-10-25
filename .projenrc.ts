@@ -17,7 +17,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   license: 'MIT',
   autoApproveUpgrades: true,
   autoApproveOptions: {
-    allowedUsernames: ['projen-builder[bot]'],
+    allowedUsernames: [
+      'projen-builder[bot]', // Bot account for upgrade PRs
+      'mrgrain', // Auto-approve PRs of main maintainer
+    ],
   },
   devDeps: [
     '@types/aws-lambda',
