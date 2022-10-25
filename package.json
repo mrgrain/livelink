@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build": "npx projen build",
+    "bump": "npx projen bump",
     "bundle": "npx projen bundle",
     "bundle:livelink.lambda": "npx projen bundle:livelink.lambda",
     "bundle:livelink.lambda:watch": "npx projen bundle:livelink.lambda:watch",
@@ -30,8 +31,10 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
+    "release": "npx projen release",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
+    "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen"
@@ -67,6 +70,7 @@
     "node-fetch": "^3.2.10",
     "npm-check-updates": "^16",
     "projen": "^0.64.1",
+    "standard-version": "^9",
     "ts-jest": "^27",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"

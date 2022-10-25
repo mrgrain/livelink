@@ -1,4 +1,4 @@
-import { awscdk } from 'projen';
+import { awscdk, release } from 'projen';
 import { LogoSystem } from './projenrc/LogoSystem';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -10,12 +10,17 @@ const project = new awscdk.AwsCdkConstructLibrary({
   repositoryUrl: 'git@github.com:mrgrain/livelink.git',
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
-  release: false,
+  releaseTrigger: release.ReleaseTrigger.scheduled({
+    schedule: '0 5 * * 1',
+  }),
   prerelease: 'pre',
   license: 'MIT',
   autoApproveUpgrades: true,
   autoApproveOptions: {
-    allowedUsernames: ['projen-builder[bot]'],
+    allowedUsernames: [
+      'projen-builder[bot]', // Bot account for upgrade PRs
+      'mrgrain', // Auto-approve PRs of main maintainer
+    ],
   },
   devDeps: [
     '@types/aws-lambda',
