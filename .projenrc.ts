@@ -1,4 +1,4 @@
-import { awscdk, github } from 'projen';
+import { awscdk } from 'projen';
 import { LogoSystem } from './projenrc/LogoSystem';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -13,9 +13,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   release: false,
   prerelease: 'pre',
   license: 'MIT',
-  githubOptions: {
-    projenCredentials: github.GithubCredentials.fromApp(),
-  },
   autoApproveUpgrades: true,
   autoApproveOptions: {
     allowedUsernames: ['projen-builder[bot]'],
