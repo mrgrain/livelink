@@ -19,7 +19,7 @@ Object {
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "60dcec8f7173a515edd0c675fd44f11a8f69ed32a0b008376e56a55fb5731c7f.zip",
+          "S3Key": "4790072559d84dfedd6702bf435141b5e6e2fc602b24b49200d0b59ddf716e05.zip",
         },
         "Description": "src/livelink.lambda.ts",
         "Handler": "index.handler",
