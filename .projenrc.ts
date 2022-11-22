@@ -84,7 +84,7 @@ project.upgradeWorkflow?.workflows[0].file?.patch(JsonPatch.add('/jobs/pr/steps/
   uses: 'peter-evans/enable-pull-request-automerge@v2',
   with: {
     'token': '${{ secrets.PROJEN_GITHUB_TOKEN }}',
-    'pull-request-number': '${{ steps.create-pr.pull-request-number }}',
+    'pull-request-number': '${{ steps.create-pr.outputs.pull-request-number }}',
     'merge-method': 'squash',
   },
 }));
