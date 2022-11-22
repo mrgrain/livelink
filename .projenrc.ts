@@ -1,4 +1,4 @@
-import { awscdk, release } from 'projen';
+import { awscdk, JsonPatch, release } from 'projen';
 import { LogoSystem } from './projenrc/LogoSystem';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -13,6 +13,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTrigger: release.ReleaseTrigger.scheduled({
     schedule: '0 5 * * 1',
   }),
+  mergify: false,
   releaseToNpm: false,
   prerelease: 'pre',
   license: 'MIT',
@@ -77,5 +78,15 @@ project.testTask.prependSpawn(bundleTask);
 project.tasks.tryFind('integ:livelink:assert')?.prependSpawn(bundleTask);
 project.tasks.tryFind('integ:livelink:deploy')?.prependSpawn(bundleTask);
 project.tasks.tryFind('integ:livelink:snapshot')?.prependSpawn(bundleTask);
+
+
+project.upgradeWorkflow?.workflows[0].file?.patch(JsonPatch.add('/jobs/pr/steps/-', {
+  uses: 'peter-evans/enable-pull-request-automerge@v2',
+  with: {
+    'token': '${{ secrets.PROJEN_GITHUB_TOKEN }}',
+    'pull-request-number': '${{ steps.create-pr.pull-request-number }}',
+    'merge-method': 'squash',
+  },
+}));
 
 project.synth();
