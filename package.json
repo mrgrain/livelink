@@ -62,7 +62,7 @@
     "jest-junit": "^13",
     "jsii": "^1.76.0",
     "jsii-diff": "^1.76.0",
-    "jsii-docgen": "^7.1.7",
+    "jsii-docgen": "^7.1.8",
     "jsii-pacmak": "^1.76.0",
     "lodash.merge": "^4.6.2",
     "node-fetch": "^3.3.0",
