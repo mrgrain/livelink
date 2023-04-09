@@ -67,7 +67,7 @@
     "lodash.merge": "^4.6.2",
     "node-fetch": "^3.3.1",
     "npm-check-updates": "^16",
-    "projen": "^0.71.5",
+    "projen": "^0.71.6",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-node": "^10.9.1",
