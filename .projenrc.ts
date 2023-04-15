@@ -29,8 +29,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'aws-cdk-lib@^2.42.0',
     'constructs@^10.0.5',
     'node-fetch',
-    'lodash.merge',
-    '@types/lodash@ts3.9',
+    'mrpj',
   ],
   peerDependencyOptions: {
     pinnedDevDependency: false,

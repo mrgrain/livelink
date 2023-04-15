@@ -1,5 +1,5 @@
 import * as path from 'path';
-import merge from 'lodash.merge';
+import { utils } from 'mrpj';
 import { Component, Project } from 'projen';
 import { SvgFile } from './SvgFile';
 
@@ -88,7 +88,7 @@ ${this.options.logo.content.split('\n').map(l => ' '.repeat(indent) + l).join('\
       ...options,
       fileBaseName: `${this.options.fileBaseName}-${name}`,
     };
-    return new Wordmark(this.project, merge({}, this.options, variant));
+    return new Wordmark(this.project, utils.deepMerge(this.options, variant));
   }
 
   public dynamic(dark: Partial<WordmarkOptions>, light: Partial<WordmarkOptions>): Wordmark[] {
@@ -132,7 +132,7 @@ ${this.options.logo.content.split('\n').map(l => ' '.repeat(indent) + l).join('\
       },
     };
 
-    return merge({}, defaults, options);
+    return utils.deepMerge(defaults, options);
   }
 
   private wordmark(text: string, { x, y }: {
