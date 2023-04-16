@@ -1,5 +1,5 @@
+import { Logo, Wordmark } from 'mrpj/lib/logo';
 import { awscdk, release } from 'projen';
-import { LogoSystem } from './projenrc/LogoSystem';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -48,24 +48,21 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 
 // Logos
-new LogoSystem(project, {
-  logo: {
-    width: 145,
-    height: 166,
-    scale: 1.23,
+const logo = Logo.fromFile('images/logo.svg', {
+  width: 145,
+  height: 166,
+});
+logo.synth(project);
+new Wordmark(project, {
+  logo: logo,
+  logoScale: 1.23,
+  logoPosition: {
     dx: 3,
   },
-  wordmark: {
-    text: 'LiveLink',
-    font: { color: '#6F7174' },
-    colorScheme: {
-      dark: { color: '#f0f6fc' },
-      light: { color: '#191919' },
-    },
-    size: {
-      width: 600,
-      scale: 0.5,
-    },
+  text: 'LiveLink',
+  size: {
+    width: 600,
+    scale: 0.5,
   },
 });
 
