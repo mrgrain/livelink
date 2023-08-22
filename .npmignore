@@ -25,3 +25,13 @@ tsconfig.tsbuildinfo
 !/assets/
 test/.tmp
 test/livelink.integ.snapshot
+images/logo.svg
+images/logo.png
+images/wordmark.svg
+images/wordmark.png
+images/wordmark-dark.svg
+images/wordmark-dark.png
+images/wordmark-light.svg
+images/wordmark-light.png
+images/wordmark-dynamic.svg
+images/wordmark-dynamic.png
