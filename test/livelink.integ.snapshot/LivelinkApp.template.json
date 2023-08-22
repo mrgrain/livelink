@@ -38,16 +38,16 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-2"
      },
-     "S3Key": "66ec417e2d266f79809204706afb51943cefad2c0d3d878788e209e3e350ceb9.zip"
+     "S3Key": "ed55bba1359c31b92d31f64a7cef7f197aae9f6aba14c234dfbc85242de62294.zip"
     },
+    "Description": "src/livelink.lambda.ts",
+    "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
       "BackendServiceRole02B059A1",
       "Arn"
      ]
     },
-    "Description": "src/livelink.lambda.ts",
-    "Handler": "index.handler",
     "Runtime": "nodejs16.x"
    },
    "DependsOn": [
@@ -64,8 +64,8 @@
       "Arn"
      ]
     },
-    "Principal": "*",
-    "FunctionUrlAuthType": "NONE"
+    "FunctionUrlAuthType": "NONE",
+    "Principal": "*"
    }
   },
   "EndpointEEF1FD8F": {
